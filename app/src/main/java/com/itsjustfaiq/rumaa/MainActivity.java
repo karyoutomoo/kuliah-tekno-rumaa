@@ -1,7 +1,11 @@
 package com.itsjustfaiq.rumaa;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
@@ -12,9 +16,24 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.LinearLayout;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener {
+import com.viewpagerindicator.CirclePageIndicator;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+
+    private static ViewPager mPager;
+    private static int currentPage = 0;
+    private static int NUM_PAGES = 0;
+    private static final Integer[] ARSITEKIMAGES= {R.drawable.rk, R.drawable.hamish, R.drawable.ahmaddjuhara,R.drawable.andramatin,R.drawable.baskorotedjo,R.drawable.budipradono};
+    private static final Integer[] DESAINIMAGES={R.drawable.rumah2,R.drawable.rumah3,R.drawable.rumah4,R.drawable.rumah5,R.drawable.rumah6,R.drawable.rumah7};
+    private ArrayList<Integer> ArsiImagesArray = new ArrayList<Integer>();
+    private ArrayList<Integer> DesainImagesArray = new ArrayList<Integer>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +59,9 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        setupSliderArsi();
+        setupSliderDesain();
     }
 
     @Override
@@ -81,21 +103,116 @@ public class MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.myaccount) {
-            // Handle the camera action
+            Intent goToProfile = new Intent(MainActivity.this, Profile.class);
+            startActivity(goToProfile);
         } else if (id == R.id.tutorial) {
 
         } else if (id == R.id.contactus) {
 
         } else if (id == R.id.help) {
 
-        } else if (id == R.id.profilarsitek) {
+        } else if (id == R.id.nav_feed) {
 
-        } else if (id == R.id.cariklien) {
+        } else if (id == R.id.nav_account) {
+
+        }else if (id == R.id.nav_fortofolio) {
+
+        }else if (id == R.id.nav_history) {
 
         }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void setupSliderArsi() {
+        for(int i=0;i<ARSITEKIMAGES.length;i++)
+            ArsiImagesArray.add(ARSITEKIMAGES[i]);
+
+        mPager = (ViewPager) findViewById(R.id.pagerArsi);
+
+
+        mPager.setAdapter(new SlidingImageArsitekAdapter(MainActivity.this,ArsiImagesArray));
+
+        CirclePageIndicator indicator = (CirclePageIndicator)
+                findViewById(R.id.indicatorArsi);
+        indicator.notifyDataSetChanged();
+        indicator.setViewPager(mPager);
+
+        final float density = getResources().getDisplayMetrics().density;
+
+//Set circle indicator radius
+        indicator.setRadius(5 * density);
+
+        NUM_PAGES =ARSITEKIMAGES.length;
+
+        // Auto start of viewpager
+        final Handler handler = new Handler();
+        final Runnable Update = new Runnable() {
+            public void run() {
+                if (currentPage == NUM_PAGES) {
+                    currentPage = 0;
+                }
+                mPager.setCurrentItem(currentPage++, true);
+            }
+        };
+        Timer swipeTimer = new Timer();
+        swipeTimer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                handler.post(Update);
+            }
+        }, 3000, 3000);
+
+        // Pager listener over indicator
+        indicator.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+
+            @Override
+            public void onPageSelected(int position) {
+                currentPage = position;
+
+            }
+
+            @Override
+            public void onPageScrolled(int pos, float arg1, int arg2) {
+
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int pos) {
+
+            }
+        });
+    }
+
+    private void setupSliderDesain() {
+        for(int i=0;i<DESAINIMAGES.length;i++)
+            DesainImagesArray.add(DESAINIMAGES[i]);
+
+        mPager = (ViewPager) findViewById(R.id.pagerDesain);
+
+
+        mPager.setAdapter(new SlidingImageDesainAdapter(MainActivity.this,DesainImagesArray));
+
+        CirclePageIndicator indicator = (CirclePageIndicator)
+                findViewById(R.id.indicatorDesain);
+        indicator.notifyDataSetChanged();
+        indicator.setViewPager(mPager);
+
+        NUM_PAGES =DESAINIMAGES.length;
+        final float density = getResources().getDisplayMetrics().density;
+        indicator.setRadius(5 * density);
+
+        // Auto start of viewpager
+        final Handler handler = new Handler();
+        final Runnable Update = new Runnable() {
+            public void run() {
+                if (currentPage == NUM_PAGES) {
+                    currentPage = 0;
+                }
+                mPager.setCurrentItem(currentPage++, true);
+            }
+        };
     }
 }
