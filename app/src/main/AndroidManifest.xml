@@ -37,7 +37,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".Profile"></activity>
+        <activity android:name=".Profile" />
+        <activity android:name=".ArsitekAccActivity" />
+        <activity android:name=".FeedActivity" />
+        <activity android:name=".HistoryActivity" />
+        <activity android:name=".FortofolioActivity"></activity>
     </application>
 
 </manifest>

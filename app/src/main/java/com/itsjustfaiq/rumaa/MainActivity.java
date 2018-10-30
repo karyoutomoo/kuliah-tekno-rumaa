@@ -112,12 +112,20 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         } else if (id == R.id.help) {
 
         } else if (id == R.id.nav_feed) {
+            Intent inten = new Intent(MainActivity.this, FeedActivity.class);
+            startActivity(inten);
 
         } else if (id == R.id.nav_account) {
+            Intent intent = new Intent(MainActivity.this, ArsitekAccActivity.class);
+            startActivity(intent);
 
         }else if (id == R.id.nav_fortofolio) {
+            Intent intent = new Intent(MainActivity.this, FortofolioActivity.class);
+            startActivity(intent);
 
         }else if (id == R.id.nav_history) {
+            Intent intent = new Intent(MainActivity.this, HistoryActivity.class);
+            startActivity(intent);
 
         }
 
