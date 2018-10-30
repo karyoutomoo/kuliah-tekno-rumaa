@@ -22,18 +22,27 @@
             android:title="Help" />
     </group>
 
-    <item android:title="Anda Arsitek?">
+    <item android:title="Arsitek">
         <menu>
             <item
-                android:id="@+id/profilarsitek"
-                android:icon="@drawable/compass"
-                android:title="Atur Profil Arsitek" />
+                android:id="@+id/nav_feed"
+                android:icon="@drawable/ic_home"
+                android:title="Feed" />
             <item
-                android:id="@+id/cariklien"
-                android:icon="@drawable/cariklien"
-                android:title="Cari Klien" />
+                android:id="@+id/nav_fortofolio"
+                android:icon="@drawable/ic_menu_gallery"
+                android:title="Fortofolio" />
+            <item
+                android:id="@+id/nav_history"
+                android:icon="@drawable/ic_history"
+                android:title="History" />
+            <item
+                android:id="@+id/nav_account"
+                android:icon="@drawable/ic_person"
+                android:title="My Account" />
+
+
         </menu>
     </item>
-
 
 </menu>
