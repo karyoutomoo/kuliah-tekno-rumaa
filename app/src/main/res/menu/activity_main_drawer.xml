@@ -5,13 +5,14 @@
 
     <group android:checkableBehavior="single">
         <item
+            android:id="@+id/feed_customer"
+            android:icon="@drawable/ic_home"
+            android:title="Feed" />
+        <item
             android:id="@+id/myaccount"
             android:icon="@drawable/ic_account_box_black_24dp"
             android:title="My Account" />
-        <item
-            android:id="@+id/tutorial"
-            android:icon="@drawable/booktutorial"
-            android:title="Tutorial RUMAA" />
+
         <item
             android:id="@+id/contactus"
             android:icon="@drawable/ic_contact_mail_black_24dp"
